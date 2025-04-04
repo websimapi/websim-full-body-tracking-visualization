@@ -15,6 +15,7 @@
             color: #333;
             font-family: Arial, sans-serif;
             font-size: 14px;
+            z-index: 10;
         }
         #controls {
             position: absolute;
@@ -25,6 +26,7 @@
             border-radius: 5px;
             font-family: Arial, sans-serif;
             font-size: 12px;
+            z-index: 10;
         }
         #controls label {
             display: block;
@@ -33,24 +35,40 @@
          #controls input[type="range"] {
             width: 150px;
          }
+         /* Hide the video element used for MediaPipe */
+         .input_video {
+             display: none;
+         }
     </style>
     <script async src="https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js"></script>
     <script type="importmap">
       {
         "imports": {
           "three": "https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js",
-          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/"
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.166.1/examples/jsm/",
+          "@mediapipe/holistic": "https://cdn.jsdelivr.net/npm/@mediapipe/holistic@0.5.1675471629/holistic.js",
+          "@mediapipe/camera_utils": "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils@0.3.1675470758/camera_utils.js",
+          "@mediapipe/drawing_utils": "https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils@0.3.1675470361/drawing_utils.js",
+           "./avatar.js": "./avatar.js",
+           "./tracking.js": "./tracking.js",
+           "./utils.js": "./utils.js"
         }
       }
     </script>
 </head>
 <body>
-    <div id="info">Full Body, Face, and Hand Tracking Visualization</div>
+    <!-- Video element for webcam input -->
+    <video class="input_video"></video>
+
+    <div id="info">Full Body, Face, and Hand Tracking Visualization (Loading...)</div>
     <div id="controls">
         <label for="jitter">Temporal Smoothing (Jitter Reduction):</label>
         <input type="range" id="jitter" name="jitter" min="0" max="0.99" step="0.01" value="0.8">
         <span id="jitterValue">0.80</span>
     </div>
+
+    <!-- Canvas for Three.js rendering -->
+    <!-- Script is loaded after body -->
     <script type="module" src="main.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
